@@ -443,8 +443,28 @@ const App = () => {
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">80 Patterns of Strategy</h1>
-              <p className="text-gray-600">Based on Patrick Hoverstadt's strategic frameworks</p>
+              <h1 className="text-3xl font-bold text-gray-900">Patterns of Strategy Explorer</h1>
+              <p className="text-gray-600">
+                View and compare 80 patterns of strategy from the book{' '}
+                <a 
+                  href="https://amzn.eu/d/j0Zr1YO" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:text-blue-700 underline"
+                >
+                  Patterns of Strategy
+                </a>
+                {' '}by{' '}
+                <a 
+                  href="https://www.linkedin.com/in/patrick-hoverstadt-3666b4/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:text-blue-700 underline"
+                >
+                  Patrick Hoverstadt
+                </a>
+                .
+              </p>
             </div>
             
             <div className="flex gap-2 items-center">
@@ -457,7 +477,7 @@ const App = () => {
                 }`}
               >
                 <Icon name="Zap" className="w-4 h-4 inline mr-2" />
-                Simple
+                Find a pattern
               </button>
               <button
                 onClick={() => { setMode('advanced'); setShowQuiz(false); }}
@@ -468,7 +488,7 @@ const App = () => {
                 }`}
               >
                 <Icon name="Filter" className="w-4 h-4 inline mr-2" />
-                Advanced
+                Filter all patterns
               </button>
               <button
                 onClick={() => setMode('compare')}
@@ -554,8 +574,20 @@ const App = () => {
         {/* Simple Mode - Quiz */}
         {mode === 'simple' && showQuiz && (
           <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Find Your Strategy Pattern</h2>
-            <p className="text-gray-600 mb-6">Answer a few questions to discover the most relevant strategy patterns for your situation.</p>
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900">Find Your Strategy Pattern</h2>
+                <p className="text-gray-600 mt-1">Answer a few questions to discover the most relevant strategy patterns for your situation.</p>
+              </div>
+              {(quizAnswers.goal || quizAnswers.size || quizAnswers.position || quizAnswers.resources || quizAnswers.timeline) && (
+                <button
+                  onClick={() => setQuizAnswers({ goal: '', size: '', position: '', resources: '', timeline: '' })}
+                  className="px-4 py-2 text-sm font-medium text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors"
+                >
+                  Reset All
+                </button>
+              )}
+            </div>
             
             <div className="space-y-6">
               <div>
@@ -570,7 +602,10 @@ const App = () => {
                   ].map(option => (
                     <button
                       key={option.value}
-                      onClick={() => setQuizAnswers(prev => ({ ...prev, goal: option.value }))}
+                      onClick={() => setQuizAnswers(prev => ({ 
+                        ...prev, 
+                        goal: prev.goal === option.value ? '' : option.value 
+                      }))}
                       className={`p-4 border-2 rounded-lg flex items-center gap-3 transition-all ${
                         quizAnswers.goal === option.value
                           ? 'border-blue-600 bg-blue-50'
@@ -594,7 +629,10 @@ const App = () => {
                   ].map(option => (
                     <button
                       key={option.value}
-                      onClick={() => setQuizAnswers(prev => ({ ...prev, size: option.value }))}
+                      onClick={() => setQuizAnswers(prev => ({ 
+                        ...prev, 
+                        size: prev.size === option.value ? '' : option.value 
+                      }))}
                       className={`p-3 border-2 rounded-lg font-medium transition-all ${
                         quizAnswers.size === option.value
                           ? 'border-blue-600 bg-blue-50'
@@ -617,7 +655,10 @@ const App = () => {
                   ].map(option => (
                     <button
                       key={option.value}
-                      onClick={() => setQuizAnswers(prev => ({ ...prev, position: option.value }))}
+                      onClick={() => setQuizAnswers(prev => ({ 
+                        ...prev, 
+                        position: prev.position === option.value ? '' : option.value 
+                      }))}
                       className={`p-3 border-2 rounded-lg font-medium transition-all ${
                         quizAnswers.position === option.value
                           ? 'border-blue-600 bg-blue-50'
@@ -640,7 +681,10 @@ const App = () => {
                   ].map(option => (
                     <button
                       key={option.value}
-                      onClick={() => setQuizAnswers(prev => ({ ...prev, resources: option.value }))}
+                      onClick={() => setQuizAnswers(prev => ({ 
+                        ...prev, 
+                        resources: prev.resources === option.value ? '' : option.value 
+                      }))}
                       className={`p-3 border-2 rounded-lg font-medium transition-all ${
                         quizAnswers.resources === option.value
                           ? 'border-blue-600 bg-blue-50'
@@ -663,7 +707,10 @@ const App = () => {
                   ].map(option => (
                     <button
                       key={option.value}
-                      onClick={() => setQuizAnswers(prev => ({ ...prev, timeline: option.value }))}
+                      onClick={() => setQuizAnswers(prev => ({ 
+                        ...prev, 
+                        timeline: prev.timeline === option.value ? '' : option.value 
+                      }))}
                       className={`p-3 border-2 rounded-lg font-medium transition-all ${
                         quizAnswers.timeline === option.value
                           ? 'border-blue-600 bg-blue-50'
