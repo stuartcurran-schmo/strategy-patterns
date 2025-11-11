@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 
-// Helper icons
+// Inline SVG Icon Component (replaces lucide-react)
 const Icon = ({ name, className = "w-5 h-5" }) => {
   const icons = {
     Search: <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>,
@@ -428,7 +428,7 @@ const App = () => {
               className="p-1 bg-gray-100 text-gray-600 hover:bg-gray-200 rounded transition-colors"
               title="Add to journey"
             >
-              <GitBranch className="w-4 h-4" />
+              <Icon name="GitBranch" className="w-4 h-4" />
             </button>
           </div>
         )}
@@ -494,7 +494,7 @@ const App = () => {
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
               >
-                <GitBranch className="w-4 h-4 inline mr-2" />
+                <Icon name="GitBranch" className="w-4 h-4 inline mr-2" />
                 Journey
                 {journeyPath.length > 0 && (
                   <span className="absolute -top-1 -right-1 bg-green-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
@@ -1080,7 +1080,7 @@ const App = () => {
                                 onClick={() => removeFromJourney(pattern.id)}
                                 className="text-gray-400 hover:text-red-600"
                               >
-                                <X className="w-5 h-5" />
+                                <Icon name="X" className="w-5 h-5" />
                               </button>
                             </div>
                             <p className="text-gray-600 text-sm mb-3">{pattern.description}</p>
@@ -1172,7 +1172,7 @@ const App = () => {
                 onClick={() => setSelectedPattern(null)}
                 className="text-gray-400 hover:text-gray-600"
               >
-                <X className="w-6 h-6" />
+                <Icon name="X" className="w-6 h-6" />
               </button>
             </div>
 
