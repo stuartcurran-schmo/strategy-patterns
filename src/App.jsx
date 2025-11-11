@@ -1,5 +1,4 @@
-import React, { useState, useMemo } from 'react';
-import { Search, Filter, ArrowRight, BookOpen, Zap, Target, TrendingUp, Shield, Users, Brain, X, ChevronDown, ChevronRight, Download, GitBranch, Plus, Minus, FileText, Database } from 'lucide-react';
+import { useState, useMemo } from 'react';
 
 // Strategy patterns data
 const patterns = [
