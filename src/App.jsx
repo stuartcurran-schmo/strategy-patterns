@@ -1,5 +1,29 @@
 import { useState, useMemo } from 'react';
 
+// Helper icons
+const Icon = ({ name, className = "w-5 h-5" }) => {
+  const icons = {
+    Search: <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>,
+    Filter: <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>,
+    ArrowRight: <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>,
+    Zap: <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>,
+    Target: <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>,
+    TrendingUp: <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>,
+    Shield: <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>,
+    Users: <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
+    Brain: <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"/></svg>,
+    BookOpen: <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>,
+    X: <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>,
+    Download: <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>,
+    GitBranch: <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><line x1="6" x2="6" y1="3" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>,
+    Plus: <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><path d="M5 12h14"/><path d="M12 5v14"/></svg>,
+    Minus: <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><path d="M5 12h14"/></svg>,
+    FileText: <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/></svg>,
+    Database: <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>,
+  };
+  return icons[name] || null;
+};
+
 // Strategy patterns data
 const patterns = [
   { id: 1, name: "Alliance", description: "Create coupling between organisations, so that all can gain more market share than alone.", landscape: "Collaborative", subCategory: "Collaboration of power", rank: 5, fit: true, time: true, power: false, challenge: "Medium", accessTo: "Cartel", accessFrom: "Herd member that wants to be on leading edge", whoExecutes: "Herd member that wants to be on leading edge", whenExecute: "Market with scope for growth with large, diverse herd", whatWin: "Access to differntiating capabilities, potential for new products and services, new market access", example: "GlaxoSmithKline", relatedPatterns: [] },
@@ -319,12 +343,12 @@ const App = () => {
 
   const getLandscapeIcon = (landscape) => {
     switch(landscape) {
-      case 'Growth': return <TrendingUp className="w-4 h-4" />;
-      case 'Defensive': return <Shield className="w-4 h-4" />;
-      case 'Competitive': return <Target className="w-4 h-4" />;
-      case 'Collaborative': return <Users className="w-4 h-4" />;
-      case 'Cunning plans': return <Brain className="w-4 h-4" />;
-      default: return <BookOpen className="w-4 h-4" />;
+      case 'Growth': return <Icon name="TrendingUp" className="w-4 h-4" />;
+      case 'Defensive': return <Icon name="Shield" className="w-4 h-4" />;
+      case 'Competitive': return <Icon name="Target" className="w-4 h-4" />;
+      case 'Collaborative': return <Icon name="Users" className="w-4 h-4" />;
+      case 'Cunning plans': return <Icon name="Brain" className="w-4 h-4" />;
+      default: return <Icon name="BookOpen" className="w-4 h-4" />;
     }
   };
 
@@ -397,7 +421,7 @@ const App = () => {
               }`}
               title={isInCompareList(pattern.id) ? 'Remove from comparison' : 'Add to comparison'}
             >
-              {isInCompareList(pattern.id) ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+              {isInCompareList(pattern.id) ? <Icon name="Minus" className="w-4 h-4" /> : <Icon name="Plus" className="w-4 h-4" />}
             </button>
             <button
               onClick={() => addToJourney(pattern)}
@@ -432,7 +456,7 @@ const App = () => {
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
               >
-                <Zap className="w-4 h-4 inline mr-2" />
+                <Icon name="Zap" className="w-4 h-4 inline mr-2" />
                 Simple
               </button>
               <button
@@ -443,7 +467,7 @@ const App = () => {
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
               >
-                <Filter className="w-4 h-4 inline mr-2" />
+                <Icon name="Filter" className="w-4 h-4 inline mr-2" />
                 Advanced
               </button>
               <button
@@ -454,7 +478,7 @@ const App = () => {
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
               >
-                <Target className="w-4 h-4 inline mr-2" />
+                <Icon name="Target" className="w-4 h-4 inline mr-2" />
                 Compare
                 {compareList.length > 0 && (
                   <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
@@ -484,7 +508,7 @@ const App = () => {
                   onClick={() => setShowExportMenu(!showExportMenu)}
                   className="px-4 py-2 rounded-lg font-medium bg-green-600 text-white hover:bg-green-700 transition-colors"
                 >
-                  <Download className="w-4 h-4 inline mr-2" />
+                  <Icon name="Download" className="w-4 h-4 inline mr-2" />
                   Export
                 </button>
                 
@@ -501,7 +525,7 @@ const App = () => {
                       }}
                       className="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center gap-2"
                     >
-                      <Database className="w-4 h-4" />
+                      <Icon name="Database" className="w-4 h-4" />
                       Export as JSON
                     </button>
                     <button
@@ -515,7 +539,7 @@ const App = () => {
                       }}
                       className="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center gap-2"
                     >
-                      <FileText className="w-4 h-4" />
+                      <Icon name="FileText" className="w-4 h-4" />
                       Export as Text
                     </button>
                   </div>
@@ -538,11 +562,11 @@ const App = () => {
                 <label className="block text-sm font-medium text-gray-700 mb-2">What's your primary strategic goal?</label>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                   {[
-                    { value: 'grow', label: 'Grow market share', icon: <TrendingUp className="w-5 h-5" /> },
-                    { value: 'defend', label: 'Defend position', icon: <Shield className="w-5 h-5" /> },
-                    { value: 'collaborate', label: 'Build partnerships', icon: <Users className="w-5 h-5" /> },
-                    { value: 'disrupt', label: 'Change the market', icon: <Zap className="w-5 h-5" /> },
-                    { value: 'supply', label: 'Supplier strategy', icon: <Target className="w-5 h-5" /> }
+                    { value: 'grow', label: 'Grow market share', icon: <Icon name="TrendingUp" className="w-5 h-5" /> },
+                    { value: 'defend', label: 'Defend position', icon: <Icon name="Shield" className="w-5 h-5" /> },
+                    { value: 'collaborate', label: 'Build partnerships', icon: <Icon name="Users" className="w-5 h-5" /> },
+                    { value: 'disrupt', label: 'Change the market', icon: <Icon name="Zap" className="w-5 h-5" /> },
+                    { value: 'supply', label: 'Supplier strategy', icon: <Icon name="Target" className="w-5 h-5" /> }
                   ].map(option => (
                     <button
                       key={option.value}
@@ -658,7 +682,7 @@ const App = () => {
                   className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
                 >
                   See Recommended Patterns
-                  <ArrowRight className="w-5 h-5" />
+                  <Icon name="ArrowRight" className="w-5 h-5" />
                 </button>
               )}
             </div>
@@ -708,7 +732,7 @@ const App = () => {
                 {/* Search */}
                 <div className="mb-4">
                   <div className="relative">
-                    <Search className="absolute left-3 top-2.5 w-4 h-4 text-gray-400" />
+                    <Icon name="Search" className="absolute left-3 top-2.5 w-4 h-4 text-gray-400" />
                     <input
                       type="text"
                       placeholder="Search patterns..."
@@ -835,7 +859,7 @@ const App = () => {
 
             {compareList.length === 0 ? (
               <div className="bg-white rounded-lg border-2 border-dashed border-gray-300 p-12 text-center">
-                <Target className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+                <Icon name="Target" className="w-16 h-16 text-gray-400 mx-auto mb-4" />
                 <h3 className="text-xl font-semibold text-gray-700 mb-2">No Patterns Selected</h3>
                 <p className="text-gray-500 mb-4">Switch to Simple or Advanced mode and click the + button on patterns to add them for comparison.</p>
                 <div className="flex gap-3 justify-center">
@@ -880,7 +904,7 @@ const App = () => {
                                 onClick={() => toggleCompare(pattern)}
                                 className="text-gray-400 hover:text-red-600"
                               >
-                                <X className="w-4 h-4" />
+                                <Icon name="X" className="w-4 h-4" />
                               </button>
                             </div>
                           </th>
@@ -1002,7 +1026,7 @@ const App = () => {
 
             {journeyPath.length === 0 ? (
               <div className="bg-white rounded-lg border-2 border-dashed border-gray-300 p-12 text-center">
-                <GitBranch className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+                <Icon name="GitBranch" className="w-16 h-16 text-gray-400 mx-auto mb-4" />
                 <h3 className="text-xl font-semibold text-gray-700 mb-2">Start Your Journey</h3>
                 <p className="text-gray-500 mb-4">Switch to Simple or Advanced mode and click the journey button on patterns to start building your strategic path.</p>
                 <div className="flex gap-3 justify-center">
@@ -1102,7 +1126,7 @@ const App = () => {
                               {getLandscapeIcon(pattern.landscape)}
                               <h4 className="font-semibold text-gray-900">{pattern.name}</h4>
                             </div>
-                            <Plus className="w-5 h-5 text-blue-600" />
+                            <Icon name="Plus" className="w-5 h-5 text-blue-600" />
                           </div>
                           <p className="text-sm text-gray-600 mb-2">{pattern.description}</p>
                           <span className={`px-2 py-1 rounded text-xs font-medium ${getChallengeColor(pattern.challenge)}`}>
