@@ -2,34 +2,6 @@
 
 An interactive web application for exploring and applying the 80 Patterns of Strategy from Patrick Hoverstadt's book.
 
-## 🚀 Quick Start - Deploy to GitHub Pages
-
-### You Need These Two Files:
-1. **index.html** - The webpage wrapper
-2. **strategy-patterns-enhanced.jsx** - The React application
-
-### Fastest Way (5 minutes):
-
-1. **Create Repository**
-   - Go to https://github.com/new
-   - Name it: `strategy-patterns`
-   - Make it Public
-   - Click "Create repository"
-
-2. **Upload Files**
-   - Click "uploading an existing file"
-   - Drag and drop `index.html` and `strategy-patterns-enhanced.jsx`
-   - Click "Commit changes"
-
-3. **Enable GitHub Pages**
-   - Go to Settings → Pages
-   - Source: Branch `main`, Folder `/ (root)`
-   - Click Save
-   - Wait 2 minutes
-
-4. **Visit Your Site**
-   - Your URL: `https://[your-username].github.io/strategy-patterns/`
-
 ## ✨ Features
 
 ### Simple Mode
@@ -71,14 +43,6 @@ Based on "80 Patterns of Strategy" by Patrick Hoverstadt, this tool helps strate
 - **Styling**: Tailwind CSS
 - **Icons**: Lucide React
 - **Hosting**: GitHub Pages (static hosting)
-
-## 📝 Full Deployment Guide
-
-See `github-pages-deployment-guide.md` for:
-- Detailed step-by-step instructions
-- Alternative deployment methods
-- Troubleshooting tips
-- Custom domain setup
 
 ## 🤝 Credits
 
