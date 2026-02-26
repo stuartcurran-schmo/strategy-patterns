@@ -341,17 +341,6 @@ const App = () => {
     }
   };
 
-  const getLandscapeIcon = (landscape) => {
-    switch(landscape) {
-      case 'Growth': return <Icon name="TrendingUp" className="w-4 h-4" />;
-      case 'Defensive': return <Icon name="Shield" className="w-4 h-4" />;
-      case 'Competitive': return <Icon name="Target" className="w-4 h-4" />;
-      case 'Collaborative': return <Icon name="Users" className="w-4 h-4" />;
-      case 'Cunning plans': return <Icon name="Brain" className="w-4 h-4" />;
-      default: return <Icon name="BookOpen" className="w-4 h-4" />;
-    }
-  };
-
   const PatternCard = ({ pattern, showScore = false, showActions = false }) => (
     <div 
       className="bg-card rounded-lg border border-border p-4 hover:shadow-lg transition-shadow"
@@ -361,7 +350,7 @@ const App = () => {
           className="flex items-center gap-2 flex-1 cursor-pointer"
           onClick={() => setSelectedPattern(pattern)}
         >
-          {getLandscapeIcon(pattern.landscape)}
+          
           <h3 className="font-bold text-lg text-ink">{pattern.name}</h3>
         </div>
         <div className="flex items-center gap-1">
@@ -469,73 +458,69 @@ const App = () => {
               </p>
             </div>
             
-            <div className="flex gap-2 items-center">
+            <div className="flex flex-wrap gap-2">
               <button
                 onClick={() => { setMode('simple'); setShowQuiz(true); }}
-                className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                className={`px-4 py-2 rounded font-medium transition-colors text-sm ${
                   mode === 'simple' 
-                    ? 'bg-accent text-white' 
-                    : 'bg-paper-dark text-ink/80 hover:bg-gray-200'
+                    ? 'bg-accent text-card' 
+                    : 'bg-card text-ink border border-border hover:bg-paper-dark'
                 }`}
               >
-                <Icon name="Zap" className="w-4 h-4 inline mr-2" />
-                Find a pattern
+                Find
               </button>
               <button
                 onClick={() => { setMode('advanced'); setShowQuiz(false); }}
-                className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                className={`px-4 py-2 rounded font-medium transition-colors text-sm ${
                   mode === 'advanced' 
-                    ? 'bg-accent text-white' 
-                    : 'bg-paper-dark text-ink/80 hover:bg-gray-200'
+                    ? 'bg-accent text-card' 
+                    : 'bg-card text-ink border border-border hover:bg-paper-dark'
                 }`}
               >
-                <Icon name="Filter" className="w-4 h-4 inline mr-2" />
-                Filter all patterns
+                Filter
               </button>
               <button
                 onClick={() => setMode('compare')}
-                className={`px-4 py-2 rounded-lg font-medium transition-colors relative ${
+                className={`px-4 py-2 rounded font-medium transition-colors relative text-sm ${
                   mode === 'compare' 
-                    ? 'bg-accent text-white' 
-                    : 'bg-paper-dark text-ink/80 hover:bg-gray-200'
+                    ? 'bg-accent text-card' 
+                    : 'bg-card text-ink border border-border hover:bg-paper-dark'
                 }`}
               >
-                <Icon name="Target" className="w-4 h-4 inline mr-2" />
                 Compare
                 {compareList.length > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                  <span className="absolute -top-1 -right-1 bg-accent text-card text-xs rounded-full w-5 h-5 flex items-center justify-center font-medium">
                     {compareList.length}
                   </span>
                 )}
               </button>
               <button
                 onClick={() => setMode('journey')}
-                className={`px-4 py-2 rounded-lg font-medium transition-colors relative ${
+                className={`px-4 py-2 rounded font-medium transition-colors relative text-sm ${
                   mode === 'journey' 
-                    ? 'bg-accent text-white' 
-                    : 'bg-paper-dark text-ink/80 hover:bg-gray-200'
+                    ? 'bg-accent text-card' 
+                    : 'bg-card text-ink border border-border hover:bg-paper-dark'
                 }`}
               >
-                <Icon name="GitBranch" className="w-4 h-4 inline mr-2" />
-                Journey
+                Connect
                 {journeyPath.length > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-green-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                  <span className="absolute -top-1 -right-1 bg-emerald-600 text-card text-xs rounded-full w-5 h-5 flex items-center justify-center font-medium">
                     {journeyPath.length}
                   </span>
                 )}
               </button>
               
-              <div className="relative">
+              {/* Export button - hidden but functional */}
+              <div className="relative hidden">
                 <button
                   onClick={() => setShowExportMenu(!showExportMenu)}
-                  className="px-4 py-2 rounded-lg font-medium bg-green-600 text-white hover:bg-green-700 transition-colors"
+                  className="px-4 py-2 rounded font-medium bg-card text-ink border border-border hover:bg-paper-dark transition-colors text-sm"
                 >
-                  <Icon name="Download" className="w-4 h-4 inline mr-2" />
                   Export
                 </button>
                 
                 {showExportMenu && (
-                  <div className="absolute right-0 mt-2 w-56 bg-card rounded-lg shadow-lg border border-border py-2 z-20">
+                  <div className="absolute right-0 mt-2 w-56 bg-card rounded shadow-lg border border-border py-2 z-20">
                     <button
                       onClick={() => {
                         const toExport = mode === 'simple' && !showQuiz ? getRecommendations() : 
@@ -545,7 +530,7 @@ const App = () => {
                         exportAsJSON(toExport);
                         setShowExportMenu(false);
                       }}
-                      className="w-full px-4 py-2 text-left hover:bg-paper flex items-center gap-2"
+                      className="w-full px-4 py-2 text-left hover:bg-paper-dark flex items-center gap-2 text-sm text-ink"
                     >
                       <Icon name="Database" className="w-4 h-4" />
                       Export as JSON
@@ -559,6 +544,15 @@ const App = () => {
                         exportAsText(toExport);
                         setShowExportMenu(false);
                       }}
+                      className="w-full px-4 py-2 text-left hover:bg-paper-dark flex items-center gap-2 text-sm text-ink"
+                    >
+                      <Icon name="FileText" className="w-4 h-4" />
+                      Export as Text
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
                       className="w-full px-4 py-2 text-left hover:bg-paper flex items-center gap-2"
                     >
                       <Icon name="FileText" className="w-4 h-4" />
@@ -596,11 +590,11 @@ const App = () => {
                 <label className="block text-sm font-medium text-ink/80 mb-2">What's your primary strategic goal?</label>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                   {[
-                    { value: 'grow', label: 'Grow market share', icon: <Icon name="TrendingUp" className="w-5 h-5" /> },
-                    { value: 'defend', label: 'Defend position', icon: <Icon name="Shield" className="w-5 h-5" /> },
-                    { value: 'collaborate', label: 'Build partnerships', icon: <Icon name="Users" className="w-5 h-5" /> },
-                    { value: 'disrupt', label: 'Change the market', icon: <Icon name="Zap" className="w-5 h-5" /> },
-                    { value: 'supply', label: 'Supplier strategy', icon: <Icon name="Target" className="w-5 h-5" /> }
+                    { value: 'grow', label: 'Grow market share' },
+                    { value: 'defend', label: 'Defend position' },
+                    { value: 'collaborate', label: 'Build partnerships' },
+                    { value: 'disrupt', label: 'Change the market' },
+                    { value: 'supply', label: 'Supplier strategy' }
                   ].map(option => (
                     <button
                       key={option.value}
@@ -608,14 +602,13 @@ const App = () => {
                         ...prev, 
                         goal: prev.goal === option.value ? '' : option.value 
                       }))}
-                      className={`p-4 border-2 rounded-lg flex items-center gap-3 transition-all ${
+                      className={`p-3 border rounded transition-all ${
                         quizAnswers.goal === option.value
-                          ? 'border-accent bg-accent-light/10'
-                          : 'border-border hover:border-border'
+                          ? 'border-accent bg-accent/5 text-accent'
+                          : 'border-border hover:border-mid/50 text-ink'
                       }`}
                     >
-                      {option.icon}
-                      <span className="font-medium">{option.label}</span>
+                      <span className="font-medium text-sm">{option.label}</span>
                     </button>
                   ))}
                 </div>
@@ -946,7 +939,7 @@ const App = () => {
                           <th key={pattern.id} className="px-4 py-3 text-left text-sm font-semibold text-ink min-w-64">
                             <div className="flex items-center justify-between">
                               <div className="flex items-center gap-2">
-                                {getLandscapeIcon(pattern.landscape)}
+                                
                                 <span>{pattern.name}</span>
                               </div>
                               <button
@@ -1119,7 +1112,7 @@ const App = () => {
                           <div className="flex-1 bg-paper rounded-lg p-4">
                             <div className="flex items-start justify-between mb-2">
                               <div className="flex items-center gap-2">
-                                {getLandscapeIcon(pattern.landscape)}
+                                
                                 <h4 className="font-bold text-lg text-ink">{pattern.name}</h4>
                                 <span className={`px-2 py-1 rounded text-xs font-medium ${getChallengeColor(pattern.challenge)}`}>
                                   {pattern.challenge}
@@ -1172,7 +1165,7 @@ const App = () => {
                         >
                           <div className="flex items-center justify-between mb-2">
                             <div className="flex items-center gap-2">
-                              {getLandscapeIcon(pattern.landscape)}
+                              
                               <h4 className="font-semibold text-ink">{pattern.name}</h4>
                             </div>
                             <Icon name="Plus" className="w-5 h-5 text-accent" />
@@ -1204,7 +1197,7 @@ const App = () => {
           <div className="bg-card rounded-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
             <div className="sticky top-0 bg-card border-b border-border p-6 flex items-start justify-between">
               <div className="flex items-start gap-3">
-                {getLandscapeIcon(selectedPattern.landscape)}
+                
                 <div>
                   <h2 className="text-2xl font-bold text-ink">{selectedPattern.name}</h2>
                   <div className="flex gap-2 mt-2">
