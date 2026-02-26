@@ -334,10 +334,10 @@ const App = () => {
 
   const getChallengeColor = (challenge) => {
     switch(challenge) {
-      case 'Low': return 'bg-green-100 text-green-800';
-      case 'Medium': return 'bg-yellow-100 text-yellow-800';
-      case 'High': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'Low': return 'bg-emerald-50 text-emerald-700 border border-emerald-200';
+      case 'Medium': return 'bg-amber-50 text-amber-700 border border-amber-200';
+      case 'High': return 'bg-rose-50 text-rose-700 border border-rose-200';
+      default: return 'bg-paper-dark text-gray-800';
     }
   };
 
@@ -354,7 +354,7 @@ const App = () => {
 
   const PatternCard = ({ pattern, showScore = false, showActions = false }) => (
     <div 
-      className="bg-white rounded-lg border border-gray-200 p-4 hover:shadow-lg transition-shadow"
+      className="bg-card rounded-lg border border-border p-4 hover:shadow-lg transition-shadow"
     >
       <div className="flex items-start justify-between mb-2">
         <div 
@@ -362,7 +362,7 @@ const App = () => {
           onClick={() => setSelectedPattern(pattern)}
         >
           {getLandscapeIcon(pattern.landscape)}
-          <h3 className="font-bold text-lg text-gray-900">{pattern.name}</h3>
+          <h3 className="font-bold text-lg text-ink">{pattern.name}</h3>
         </div>
         <div className="flex items-center gap-1">
           <span className={`px-2 py-1 rounded text-xs font-medium ${getChallengeColor(pattern.challenge)}`}>
@@ -376,35 +376,35 @@ const App = () => {
           <div className="flex items-center gap-2">
             <div className="flex-1 bg-gray-200 rounded-full h-2">
               <div 
-                className="bg-blue-600 h-2 rounded-full" 
+                className="bg-accent h-2 rounded-full" 
                 style={{ width: `${(pattern.score / 10) * 100}%` }}
               />
             </div>
-            <span className="text-xs text-gray-600 font-medium">Match: {pattern.score}/10</span>
+            <span className="text-xs text-mid font-medium">Match: {pattern.score}/10</span>
           </div>
         </div>
       )}
       
       <p 
-        className="text-gray-600 text-sm mb-3 cursor-pointer"
+        className="text-mid text-sm mb-3 cursor-pointer"
         onClick={() => setSelectedPattern(pattern)}
       >
         {pattern.description}
       </p>
       
       <div className="flex flex-wrap gap-2 mb-2">
-        <span className="px-2 py-1 bg-blue-50 text-blue-700 rounded text-xs font-medium">
+        <span className="px-2 py-1 bg-accent-light/10 text-accent rounded text-xs font-medium">
           {pattern.landscape}
         </span>
         {pattern.subCategory && (
-          <span className="px-2 py-1 bg-purple-50 text-purple-700 rounded text-xs">
+          <span className="px-2 py-1 bg-purple-50 text-purple-700 border border-purple-200 rounded text-xs">
             {pattern.subCategory}
           </span>
         )}
       </div>
       
       <div className="flex items-center justify-between">
-        <div className="flex gap-2 text-xs text-gray-500">
+        <div className="flex gap-2 text-xs text-mid/70">
           {pattern.fit && <span className="flex items-center gap-1">✓ Fit</span>}
           {pattern.time && <span className="flex items-center gap-1">⏱ Time</span>}
           {pattern.power && <span className="flex items-center gap-1">⚡ Power</span>}
@@ -416,8 +416,8 @@ const App = () => {
               onClick={() => toggleCompare(pattern)}
               className={`p-1 rounded transition-colors ${
                 isInCompareList(pattern.id)
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  ? 'bg-accent text-white'
+                  : 'bg-paper-dark text-mid hover:bg-gray-200'
               }`}
               title={isInCompareList(pattern.id) ? 'Remove from comparison' : 'Add to comparison'}
             >
@@ -425,7 +425,7 @@ const App = () => {
             </button>
             <button
               onClick={() => addToJourney(pattern)}
-              className="p-1 bg-gray-100 text-gray-600 hover:bg-gray-200 rounded transition-colors"
+              className="p-1 bg-paper-dark text-mid hover:bg-gray-200 rounded transition-colors"
               title="Add to journey"
             >
               <Icon name="GitBranch" className="w-4 h-4" />
@@ -437,20 +437,22 @@ const App = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-paper">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-4 py-4">
-          <div className="flex items-center justify-between mb-4">
+      <div className="bg-ink border-b border-ink sticky top-0 z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-6">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Patterns of Strategy Explorer</h1>
-              <p className="text-gray-600">
+              <h1 className="text-3xl sm:text-4xl font-serif font-semibold text-paper tracking-tight leading-tight">
+                Patterns of Strategy Explorer
+              </h1>
+              <p className="text-paper/65 text-sm sm:text-base mt-2 leading-relaxed font-light">
                 View and compare 80 patterns of strategy from the book{' '}
                 <a 
                   href="https://amzn.eu/d/j0Zr1YO" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="text-blue-600 hover:text-blue-700 underline"
+                  className="text-accent-light hover:text-accent-light/80 underline decoration-accent-light/30 transition-colors"
                 >
                   Patterns of Strategy
                 </a>
@@ -459,7 +461,7 @@ const App = () => {
                   href="https://www.linkedin.com/in/patrick-hoverstadt-3666b4/" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="text-blue-600 hover:text-blue-700 underline"
+                  className="text-accent-light hover:text-accent-light/80 underline decoration-accent-light/30 transition-colors"
                 >
                   Patrick Hoverstadt
                 </a>
@@ -472,8 +474,8 @@ const App = () => {
                 onClick={() => { setMode('simple'); setShowQuiz(true); }}
                 className={`px-4 py-2 rounded-lg font-medium transition-colors ${
                   mode === 'simple' 
-                    ? 'bg-blue-600 text-white' 
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    ? 'bg-accent text-white' 
+                    : 'bg-paper-dark text-ink/80 hover:bg-gray-200'
                 }`}
               >
                 <Icon name="Zap" className="w-4 h-4 inline mr-2" />
@@ -483,8 +485,8 @@ const App = () => {
                 onClick={() => { setMode('advanced'); setShowQuiz(false); }}
                 className={`px-4 py-2 rounded-lg font-medium transition-colors ${
                   mode === 'advanced' 
-                    ? 'bg-blue-600 text-white' 
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    ? 'bg-accent text-white' 
+                    : 'bg-paper-dark text-ink/80 hover:bg-gray-200'
                 }`}
               >
                 <Icon name="Filter" className="w-4 h-4 inline mr-2" />
@@ -494,8 +496,8 @@ const App = () => {
                 onClick={() => setMode('compare')}
                 className={`px-4 py-2 rounded-lg font-medium transition-colors relative ${
                   mode === 'compare' 
-                    ? 'bg-blue-600 text-white' 
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    ? 'bg-accent text-white' 
+                    : 'bg-paper-dark text-ink/80 hover:bg-gray-200'
                 }`}
               >
                 <Icon name="Target" className="w-4 h-4 inline mr-2" />
@@ -510,8 +512,8 @@ const App = () => {
                 onClick={() => setMode('journey')}
                 className={`px-4 py-2 rounded-lg font-medium transition-colors relative ${
                   mode === 'journey' 
-                    ? 'bg-blue-600 text-white' 
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    ? 'bg-accent text-white' 
+                    : 'bg-paper-dark text-ink/80 hover:bg-gray-200'
                 }`}
               >
                 <Icon name="GitBranch" className="w-4 h-4 inline mr-2" />
@@ -533,7 +535,7 @@ const App = () => {
                 </button>
                 
                 {showExportMenu && (
-                  <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-20">
+                  <div className="absolute right-0 mt-2 w-56 bg-card rounded-lg shadow-lg border border-border py-2 z-20">
                     <button
                       onClick={() => {
                         const toExport = mode === 'simple' && !showQuiz ? getRecommendations() : 
@@ -543,7 +545,7 @@ const App = () => {
                         exportAsJSON(toExport);
                         setShowExportMenu(false);
                       }}
-                      className="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center gap-2"
+                      className="w-full px-4 py-2 text-left hover:bg-paper flex items-center gap-2"
                     >
                       <Icon name="Database" className="w-4 h-4" />
                       Export as JSON
@@ -557,7 +559,7 @@ const App = () => {
                         exportAsText(toExport);
                         setShowExportMenu(false);
                       }}
-                      className="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center gap-2"
+                      className="w-full px-4 py-2 text-left hover:bg-paper flex items-center gap-2"
                     >
                       <Icon name="FileText" className="w-4 h-4" />
                       Export as Text
@@ -573,11 +575,11 @@ const App = () => {
       <div className="max-w-7xl mx-auto px-4 py-6">
         {/* Simple Mode - Quiz */}
         {mode === 'simple' && showQuiz && (
-          <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+          <div className="bg-card rounded-lg shadow-sm p-6 mb-6">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h2 className="text-2xl font-bold text-gray-900">Find Your Strategy Pattern</h2>
-                <p className="text-gray-600 mt-1">Answer a few questions to discover the most relevant strategy patterns for your situation.</p>
+                <h2 className="text-2xl font-bold text-ink">Find Your Strategy Pattern</h2>
+                <p className="text-mid mt-1">Answer a few questions to discover the most relevant strategy patterns for your situation.</p>
               </div>
               {(quizAnswers.goal || quizAnswers.size || quizAnswers.position || quizAnswers.resources || quizAnswers.timeline) && (
                 <button
@@ -591,7 +593,7 @@ const App = () => {
             
             <div className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">What's your primary strategic goal?</label>
+                <label className="block text-sm font-medium text-ink/80 mb-2">What's your primary strategic goal?</label>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                   {[
                     { value: 'grow', label: 'Grow market share', icon: <Icon name="TrendingUp" className="w-5 h-5" /> },
@@ -608,8 +610,8 @@ const App = () => {
                       }))}
                       className={`p-4 border-2 rounded-lg flex items-center gap-3 transition-all ${
                         quizAnswers.goal === option.value
-                          ? 'border-blue-600 bg-blue-50'
-                          : 'border-gray-200 hover:border-gray-300'
+                          ? 'border-accent bg-accent-light/10'
+                          : 'border-border hover:border-border'
                       }`}
                     >
                       {option.icon}
@@ -620,7 +622,7 @@ const App = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">What's your organization size?</label>
+                <label className="block text-sm font-medium text-ink/80 mb-2">What's your organization size?</label>
                 <div className="grid grid-cols-3 gap-3">
                   {[
                     { value: 'small', label: 'Small/Startup' },
@@ -635,8 +637,8 @@ const App = () => {
                       }))}
                       className={`p-3 border-2 rounded-lg font-medium transition-all ${
                         quizAnswers.size === option.value
-                          ? 'border-blue-600 bg-blue-50'
-                          : 'border-gray-200 hover:border-gray-300'
+                          ? 'border-accent bg-accent-light/10'
+                          : 'border-border hover:border-border'
                       }`}
                     >
                       {option.label}
@@ -646,7 +648,7 @@ const App = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">What's your market position?</label>
+                <label className="block text-sm font-medium text-ink/80 mb-2">What's your market position?</label>
                 <div className="grid grid-cols-3 gap-3">
                   {[
                     { value: 'leader', label: 'Market Leader' },
@@ -661,8 +663,8 @@ const App = () => {
                       }))}
                       className={`p-3 border-2 rounded-lg font-medium transition-all ${
                         quizAnswers.position === option.value
-                          ? 'border-blue-600 bg-blue-50'
-                          : 'border-gray-200 hover:border-gray-300'
+                          ? 'border-accent bg-accent-light/10'
+                          : 'border-border hover:border-border'
                       }`}
                     >
                       {option.label}
@@ -672,7 +674,7 @@ const App = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">What resources do you have available?</label>
+                <label className="block text-sm font-medium text-ink/80 mb-2">What resources do you have available?</label>
                 <div className="grid grid-cols-3 gap-3">
                   {[
                     { value: 'low', label: 'Limited' },
@@ -687,8 +689,8 @@ const App = () => {
                       }))}
                       className={`p-3 border-2 rounded-lg font-medium transition-all ${
                         quizAnswers.resources === option.value
-                          ? 'border-blue-600 bg-blue-50'
-                          : 'border-gray-200 hover:border-gray-300'
+                          ? 'border-accent bg-accent-light/10'
+                          : 'border-border hover:border-border'
                       }`}
                     >
                       {option.label}
@@ -698,7 +700,7 @@ const App = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">What's your timeline?</label>
+                <label className="block text-sm font-medium text-ink/80 mb-2">What's your timeline?</label>
                 <div className="grid grid-cols-3 gap-3">
                   {[
                     { value: 'urgent', label: 'Quick wins needed' },
@@ -713,8 +715,8 @@ const App = () => {
                       }))}
                       className={`p-3 border-2 rounded-lg font-medium transition-all ${
                         quizAnswers.timeline === option.value
-                          ? 'border-blue-600 bg-blue-50'
-                          : 'border-gray-200 hover:border-gray-300'
+                          ? 'border-accent bg-accent-light/10'
+                          : 'border-border hover:border-border'
                       }`}
                     >
                       {option.label}
@@ -726,7 +728,7 @@ const App = () => {
               {quizAnswers.goal && (
                 <button
                   onClick={() => setShowQuiz(false)}
-                  className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
+                  className="w-full bg-accent text-white py-3 rounded-lg font-medium hover:bg-accent hover:brightness-90 transition-colors flex items-center justify-center gap-2"
                 >
                   See Recommended Patterns
                   <Icon name="ArrowRight" className="w-5 h-5" />
@@ -740,10 +742,10 @@ const App = () => {
         {mode === 'simple' && !showQuiz && (
           <div>
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold text-gray-900">Your Recommended Patterns</h2>
+              <h2 className="text-2xl font-bold text-ink">Your Recommended Patterns</h2>
               <button
                 onClick={() => setShowQuiz(true)}
-                className="text-blue-600 hover:text-blue-700 font-medium"
+                className="text-accent hover:text-accent font-medium"
               >
                 ← Retake Quiz
               </button>
@@ -762,14 +764,14 @@ const App = () => {
           <div className="grid lg:grid-cols-4 gap-6">
             {/* Filters Sidebar */}
             <div className="lg:col-span-1">
-              <div className="bg-white rounded-lg shadow-sm p-4 sticky top-24">
+              <div className="bg-card rounded-lg shadow-sm p-4 sticky top-24">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="font-bold text-gray-900">Filters</h3>
+                  <h3 className="font-bold text-ink">Filters</h3>
                   {(filters.landscape.length > 0 || filters.challenge.length > 0 || 
                     filters.fit !== null || filters.time !== null || filters.power !== null) && (
                     <button
                       onClick={clearFilters}
-                      className="text-sm text-blue-600 hover:text-blue-700"
+                      className="text-sm text-accent hover:text-accent"
                     >
                       Clear all
                     </button>
@@ -779,30 +781,30 @@ const App = () => {
                 {/* Search */}
                 <div className="mb-4">
                   <div className="relative">
-                    <Icon name="Search" className="absolute left-3 top-2.5 w-4 h-4 text-gray-400" />
+                    <Icon name="Search" className="absolute left-3 top-2.5 w-4 h-4 text-mid/50" />
                     <input
                       type="text"
                       placeholder="Search patterns..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full pl-9 pr-3 py-2 border border-border rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
                   </div>
                 </div>
 
                 {/* Strategy Landscape */}
                 <div className="mb-4">
-                  <h4 className="text-sm font-semibold text-gray-700 mb-2">Strategy Landscape</h4>
+                  <h4 className="text-sm font-semibold text-ink/80 mb-2">Strategy Landscape</h4>
                   <div className="space-y-1">
                     {landscapes.map(landscape => (
-                      <label key={landscape} className="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-1 rounded">
+                      <label key={landscape} className="flex items-center gap-2 cursor-pointer hover:bg-paper p-1 rounded">
                         <input
                           type="checkbox"
                           checked={filters.landscape.includes(landscape)}
                           onChange={() => toggleFilter('landscape', landscape)}
-                          className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                          className="rounded border-border text-accent focus:ring-blue-500"
                         />
-                        <span className="text-sm text-gray-700">{landscape}</span>
+                        <span className="text-sm text-ink/80">{landscape}</span>
                       </label>
                     ))}
                   </div>
@@ -810,15 +812,15 @@ const App = () => {
 
                 {/* Challenge Level */}
                 <div className="mb-4">
-                  <h4 className="text-sm font-semibold text-gray-700 mb-2">Challenge Level</h4>
+                  <h4 className="text-sm font-semibold text-ink/80 mb-2">Challenge Level</h4>
                   <div className="space-y-1">
                     {challenges.map(challenge => (
-                      <label key={challenge} className="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-1 rounded">
+                      <label key={challenge} className="flex items-center gap-2 cursor-pointer hover:bg-paper p-1 rounded">
                         <input
                           type="checkbox"
                           checked={filters.challenge.includes(challenge)}
                           onChange={() => toggleFilter('challenge', challenge)}
-                          className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                          className="rounded border-border text-accent focus:ring-blue-500"
                         />
                         <span className={`px-2 py-0.5 rounded text-xs font-medium ${getChallengeColor(challenge)}`}>
                           {challenge}
@@ -830,34 +832,34 @@ const App = () => {
 
                 {/* Execution Requirements */}
                 <div className="mb-4">
-                  <h4 className="text-sm font-semibold text-gray-700 mb-2">Execution Requirements</h4>
+                  <h4 className="text-sm font-semibold text-ink/80 mb-2">Execution Requirements</h4>
                   <div className="space-y-2">
-                    <label className="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-1 rounded">
+                    <label className="flex items-center gap-2 cursor-pointer hover:bg-paper p-1 rounded">
                       <input
                         type="checkbox"
                         checked={filters.fit === true}
                         onChange={() => toggleFilter('fit', true)}
-                        className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                        className="rounded border-border text-accent focus:ring-blue-500"
                       />
-                      <span className="text-sm text-gray-700">Requires Fit</span>
+                      <span className="text-sm text-ink/80">Requires Fit</span>
                     </label>
-                    <label className="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-1 rounded">
+                    <label className="flex items-center gap-2 cursor-pointer hover:bg-paper p-1 rounded">
                       <input
                         type="checkbox"
                         checked={filters.time === true}
                         onChange={() => toggleFilter('time', true)}
-                        className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                        className="rounded border-border text-accent focus:ring-blue-500"
                       />
-                      <span className="text-sm text-gray-700">Time Sensitive</span>
+                      <span className="text-sm text-ink/80">Time Sensitive</span>
                     </label>
-                    <label className="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-1 rounded">
+                    <label className="flex items-center gap-2 cursor-pointer hover:bg-paper p-1 rounded">
                       <input
                         type="checkbox"
                         checked={filters.power === true}
                         onChange={() => toggleFilter('power', true)}
-                        className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                        className="rounded border-border text-accent focus:ring-blue-500"
                       />
-                      <span className="text-sm text-gray-700">Requires Power</span>
+                      <span className="text-sm text-ink/80">Requires Power</span>
                     </label>
                   </div>
                 </div>
@@ -867,7 +869,7 @@ const App = () => {
             {/* Results Grid */}
             <div className="lg:col-span-3">
               <div className="mb-4">
-                <p className="text-gray-600">
+                <p className="text-mid">
                   Showing <span className="font-semibold">{filteredPatterns.length}</span> of <span className="font-semibold">{patterns.length}</span> patterns
                 </p>
               </div>
@@ -880,10 +882,10 @@ const App = () => {
 
               {filteredPatterns.length === 0 && (
                 <div className="text-center py-12">
-                  <p className="text-gray-500 text-lg">No patterns match your filters</p>
+                  <p className="text-mid/70 text-lg">No patterns match your filters</p>
                   <button
                     onClick={clearFilters}
-                    className="mt-4 text-blue-600 hover:text-blue-700 font-medium"
+                    className="mt-4 text-accent hover:text-accent font-medium"
                   >
                     Clear all filters
                   </button>
@@ -897,28 +899,28 @@ const App = () => {
         {mode === 'compare' && (
           <div>
             <div className="mb-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Compare Patterns</h2>
-              <p className="text-gray-600">
+              <h2 className="text-2xl font-bold text-ink mb-2">Compare Patterns</h2>
+              <p className="text-mid">
                 {compareList.length === 0 && "Add patterns from other modes to compare them side-by-side (max 4)."}
                 {compareList.length > 0 && `Comparing ${compareList.length} pattern${compareList.length > 1 ? 's' : ''}. Add more from Simple or Advanced modes.`}
               </p>
             </div>
 
             {compareList.length === 0 ? (
-              <div className="bg-white rounded-lg border-2 border-dashed border-gray-300 p-12 text-center">
-                <Icon name="Target" className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-gray-700 mb-2">No Patterns Selected</h3>
-                <p className="text-gray-500 mb-4">Switch to Simple or Advanced mode and click the + button on patterns to add them for comparison.</p>
+              <div className="bg-card rounded-lg border-2 border-dashed border-border p-12 text-center">
+                <Icon name="Target" className="w-16 h-16 text-mid/50 mx-auto mb-4" />
+                <h3 className="text-xl font-semibold text-ink/80 mb-2">No Patterns Selected</h3>
+                <p className="text-mid/70 mb-4">Switch to Simple or Advanced mode and click the + button on patterns to add them for comparison.</p>
                 <div className="flex gap-3 justify-center">
                   <button
                     onClick={() => setMode('simple')}
-                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                    className="px-4 py-2 bg-accent text-white rounded-lg hover:bg-accent hover:brightness-90 transition-colors"
                   >
                     Go to Simple Mode
                   </button>
                   <button
                     onClick={() => setMode('advanced')}
-                    className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors"
+                    className="px-4 py-2 bg-gray-200 text-ink/80 rounded-lg hover:bg-gray-300 transition-colors"
                   >
                     Go to Advanced Mode
                   </button>
@@ -935,13 +937,13 @@ const App = () => {
                   </button>
                 </div>
 
-                <div className="bg-white rounded-lg border border-gray-200 overflow-x-auto">
+                <div className="bg-card rounded-lg border border-border overflow-x-auto">
                   <table className="w-full">
-                    <thead className="bg-gray-50 border-b border-gray-200">
+                    <thead className="bg-paper border-b border-border">
                       <tr>
-                        <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 w-48">Attribute</th>
+                        <th className="px-4 py-3 text-left text-sm font-semibold text-ink/80 w-48">Attribute</th>
                         {compareList.map(pattern => (
-                          <th key={pattern.id} className="px-4 py-3 text-left text-sm font-semibold text-gray-900 min-w-64">
+                          <th key={pattern.id} className="px-4 py-3 text-left text-sm font-semibold text-ink min-w-64">
                             <div className="flex items-center justify-between">
                               <div className="flex items-center gap-2">
                                 {getLandscapeIcon(pattern.landscape)}
@@ -949,7 +951,7 @@ const App = () => {
                               </div>
                               <button
                                 onClick={() => toggleCompare(pattern)}
-                                className="text-gray-400 hover:text-red-600"
+                                className="text-mid/50 hover:text-red-600"
                               >
                                 <Icon name="X" className="w-4 h-4" />
                               </button>
@@ -959,34 +961,34 @@ const App = () => {
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-200">
-                      <tr className="hover:bg-gray-50">
-                        <td className="px-4 py-3 text-sm font-medium text-gray-700">Description</td>
+                      <tr className="hover:bg-paper">
+                        <td className="px-4 py-3 text-sm font-medium text-ink/80">Description</td>
                         {compareList.map(pattern => (
-                          <td key={pattern.id} className="px-4 py-3 text-sm text-gray-600">{pattern.description}</td>
+                          <td key={pattern.id} className="px-4 py-3 text-sm text-mid">{pattern.description}</td>
                         ))}
                       </tr>
-                      <tr className="hover:bg-gray-50">
-                        <td className="px-4 py-3 text-sm font-medium text-gray-700">Strategy Landscape</td>
+                      <tr className="hover:bg-paper">
+                        <td className="px-4 py-3 text-sm font-medium text-ink/80">Strategy Landscape</td>
                         {compareList.map(pattern => (
                           <td key={pattern.id} className="px-4 py-3">
-                            <span className="px-2 py-1 bg-blue-50 text-blue-700 rounded text-xs font-medium">
+                            <span className="px-2 py-1 bg-accent-light/10 text-accent rounded text-xs font-medium">
                               {pattern.landscape}
                             </span>
                           </td>
                         ))}
                       </tr>
                       {compareList.some(p => p.subCategory) && (
-                        <tr className="hover:bg-gray-50">
-                          <td className="px-4 py-3 text-sm font-medium text-gray-700">Sub-category</td>
+                        <tr className="hover:bg-paper">
+                          <td className="px-4 py-3 text-sm font-medium text-ink/80">Sub-category</td>
                           {compareList.map(pattern => (
-                            <td key={pattern.id} className="px-4 py-3 text-sm text-gray-600">
+                            <td key={pattern.id} className="px-4 py-3 text-sm text-mid">
                               {pattern.subCategory || '-'}
                             </td>
                           ))}
                         </tr>
                       )}
-                      <tr className="hover:bg-gray-50">
-                        <td className="px-4 py-3 text-sm font-medium text-gray-700">Challenge Level</td>
+                      <tr className="hover:bg-paper">
+                        <td className="px-4 py-3 text-sm font-medium text-ink/80">Challenge Level</td>
                         {compareList.map(pattern => (
                           <td key={pattern.id} className="px-4 py-3">
                             <span className={`px-2 py-1 rounded text-xs font-medium ${getChallengeColor(pattern.challenge)}`}>
@@ -995,60 +997,60 @@ const App = () => {
                           </td>
                         ))}
                       </tr>
-                      <tr className="hover:bg-gray-50">
-                        <td className="px-4 py-3 text-sm font-medium text-gray-700">Requirements</td>
+                      <tr className="hover:bg-paper">
+                        <td className="px-4 py-3 text-sm font-medium text-ink/80">Requirements</td>
                         {compareList.map(pattern => (
                           <td key={pattern.id} className="px-4 py-3">
                             <div className="flex flex-col gap-1 text-xs">
-                              <span className={pattern.fit ? 'text-green-600' : 'text-gray-400'}>
+                              <span className={pattern.fit ? 'text-green-600' : 'text-mid/50'}>
                                 {pattern.fit ? '✓' : '○'} Fit
                               </span>
-                              <span className={pattern.time ? 'text-green-600' : 'text-gray-400'}>
+                              <span className={pattern.time ? 'text-green-600' : 'text-mid/50'}>
                                 {pattern.time ? '✓' : '○'} Time
                               </span>
-                              <span className={pattern.power ? 'text-green-600' : 'text-gray-400'}>
+                              <span className={pattern.power ? 'text-green-600' : 'text-mid/50'}>
                                 {pattern.power ? '✓' : '○'} Power
                               </span>
                             </div>
                           </td>
                         ))}
                       </tr>
-                      <tr className="hover:bg-gray-50">
-                        <td className="px-4 py-3 text-sm font-medium text-gray-700">Who Can Execute</td>
+                      <tr className="hover:bg-paper">
+                        <td className="px-4 py-3 text-sm font-medium text-ink/80">Who Can Execute</td>
                         {compareList.map(pattern => (
-                          <td key={pattern.id} className="px-4 py-3 text-sm text-gray-600">
+                          <td key={pattern.id} className="px-4 py-3 text-sm text-mid">
                             {pattern.whoExecutes || '-'}
                           </td>
                         ))}
                       </tr>
-                      <tr className="hover:bg-gray-50">
-                        <td className="px-4 py-3 text-sm font-medium text-gray-700">When to Execute</td>
+                      <tr className="hover:bg-paper">
+                        <td className="px-4 py-3 text-sm font-medium text-ink/80">When to Execute</td>
                         {compareList.map(pattern => (
-                          <td key={pattern.id} className="px-4 py-3 text-sm text-gray-600">
+                          <td key={pattern.id} className="px-4 py-3 text-sm text-mid">
                             {pattern.whenExecute || '-'}
                           </td>
                         ))}
                       </tr>
-                      <tr className="hover:bg-gray-50">
-                        <td className="px-4 py-3 text-sm font-medium text-gray-700">What You Win</td>
+                      <tr className="hover:bg-paper">
+                        <td className="px-4 py-3 text-sm font-medium text-ink/80">What You Win</td>
                         {compareList.map(pattern => (
-                          <td key={pattern.id} className="px-4 py-3 text-sm text-gray-600">
+                          <td key={pattern.id} className="px-4 py-3 text-sm text-mid">
                             {pattern.whatWin || '-'}
                           </td>
                         ))}
                       </tr>
-                      <tr className="hover:bg-gray-50">
-                        <td className="px-4 py-3 text-sm font-medium text-gray-700">Example</td>
+                      <tr className="hover:bg-paper">
+                        <td className="px-4 py-3 text-sm font-medium text-ink/80">Example</td>
                         {compareList.map(pattern => (
-                          <td key={pattern.id} className="px-4 py-3 text-sm text-gray-600 italic">
+                          <td key={pattern.id} className="px-4 py-3 text-sm text-mid italic">
                             {pattern.example || '-'}
                           </td>
                         ))}
                       </tr>
-                      <tr className="hover:bg-gray-50">
-                        <td className="px-4 py-3 text-sm font-medium text-gray-700">Related Patterns</td>
+                      <tr className="hover:bg-paper">
+                        <td className="px-4 py-3 text-sm font-medium text-ink/80">Related Patterns</td>
                         {compareList.map(pattern => (
-                          <td key={pattern.id} className="px-4 py-3 text-sm text-gray-600">
+                          <td key={pattern.id} className="px-4 py-3 text-sm text-mid">
                             {pattern.relatedPatterns?.length > 0 ? pattern.relatedPatterns.join(', ') : '-'}
                           </td>
                         ))}
@@ -1065,27 +1067,27 @@ const App = () => {
         {mode === 'journey' && (
           <div>
             <div className="mb-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Strategy Journey Planner</h2>
-              <p className="text-gray-600">
+              <h2 className="text-2xl font-bold text-ink mb-2">Strategy Journey Planner</h2>
+              <p className="text-mid">
                 Build a strategic pathway by adding patterns in sequence. We'll suggest natural progressions.
               </p>
             </div>
 
             {journeyPath.length === 0 ? (
-              <div className="bg-white rounded-lg border-2 border-dashed border-gray-300 p-12 text-center">
-                <Icon name="GitBranch" className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-gray-700 mb-2">Start Your Journey</h3>
-                <p className="text-gray-500 mb-4">Switch to Simple or Advanced mode and click the journey button on patterns to start building your strategic path.</p>
+              <div className="bg-card rounded-lg border-2 border-dashed border-border p-12 text-center">
+                <Icon name="GitBranch" className="w-16 h-16 text-mid/50 mx-auto mb-4" />
+                <h3 className="text-xl font-semibold text-ink/80 mb-2">Start Your Journey</h3>
+                <p className="text-mid/70 mb-4">Switch to Simple or Advanced mode and click the journey button on patterns to start building your strategic path.</p>
                 <div className="flex gap-3 justify-center">
                   <button
                     onClick={() => setMode('simple')}
-                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                    className="px-4 py-2 bg-accent text-white rounded-lg hover:bg-accent hover:brightness-90 transition-colors"
                   >
                     Go to Simple Mode
                   </button>
                   <button
                     onClick={() => setMode('advanced')}
-                    className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors"
+                    className="px-4 py-2 bg-gray-200 text-ink/80 rounded-lg hover:bg-gray-300 transition-colors"
                   >
                     Go to Advanced Mode
                   </button>
@@ -1094,7 +1096,7 @@ const App = () => {
             ) : (
               <div className="space-y-6">
                 <div className="flex justify-between items-center">
-                  <h3 className="text-lg font-semibold text-gray-900">Your Strategic Path</h3>
+                  <h3 className="text-lg font-semibold text-ink">Your Strategic Path</h3>
                   <button
                     onClick={() => setJourneyPath([])}
                     className="text-red-600 hover:text-red-700 font-medium"
@@ -1103,40 +1105,40 @@ const App = () => {
                   </button>
                 </div>
 
-                <div className="bg-white rounded-lg border border-gray-200 p-6">
+                <div className="bg-card rounded-lg border border-border p-6">
                   <div className="space-y-4">
                     {journeyPath.map((pattern, idx) => (
                       <div key={pattern.id}>
                         <div className="flex items-start gap-4">
                           <div className="flex-shrink-0">
-                            <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">
+                            <div className="w-8 h-8 bg-accent text-white rounded-full flex items-center justify-center font-bold">
                               {idx + 1}
                             </div>
                           </div>
                           
-                          <div className="flex-1 bg-gray-50 rounded-lg p-4">
+                          <div className="flex-1 bg-paper rounded-lg p-4">
                             <div className="flex items-start justify-between mb-2">
                               <div className="flex items-center gap-2">
                                 {getLandscapeIcon(pattern.landscape)}
-                                <h4 className="font-bold text-lg text-gray-900">{pattern.name}</h4>
+                                <h4 className="font-bold text-lg text-ink">{pattern.name}</h4>
                                 <span className={`px-2 py-1 rounded text-xs font-medium ${getChallengeColor(pattern.challenge)}`}>
                                   {pattern.challenge}
                                 </span>
                               </div>
                               <button
                                 onClick={() => removeFromJourney(pattern.id)}
-                                className="text-gray-400 hover:text-red-600"
+                                className="text-mid/50 hover:text-red-600"
                               >
                                 <Icon name="X" className="w-5 h-5" />
                               </button>
                             </div>
-                            <p className="text-gray-600 text-sm mb-3">{pattern.description}</p>
+                            <p className="text-mid text-sm mb-3">{pattern.description}</p>
                             <div className="flex items-center gap-2">
-                              <span className="px-2 py-1 bg-blue-50 text-blue-700 rounded text-xs font-medium">
+                              <span className="px-2 py-1 bg-accent-light/10 text-accent rounded text-xs font-medium">
                                 {pattern.landscape}
                               </span>
                               {pattern.subCategory && (
-                                <span className="px-2 py-1 bg-purple-50 text-purple-700 rounded text-xs">
+                                <span className="px-2 py-1 bg-purple-50 text-purple-700 border border-purple-200 rounded text-xs">
                                   {pattern.subCategory}
                                 </span>
                               )}
@@ -1155,9 +1157,9 @@ const App = () => {
                 </div>
 
                 {journeyPath.length > 0 && (
-                  <div className="bg-white rounded-lg border border-gray-200 p-6">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Suggested Next Steps</h3>
-                    <p className="text-gray-600 text-sm mb-4">
+                  <div className="bg-card rounded-lg border border-border p-6">
+                    <h3 className="text-lg font-semibold text-ink mb-4">Suggested Next Steps</h3>
+                    <p className="text-mid text-sm mb-4">
                       Based on your current pattern ({journeyPath[journeyPath.length - 1].name}), here are natural progressions:
                     </p>
                     
@@ -1165,17 +1167,17 @@ const App = () => {
                       {getSuggestedNextPatterns(journeyPath[journeyPath.length - 1]).map(pattern => (
                         <div
                           key={pattern.id}
-                          className="border border-gray-200 rounded-lg p-4 hover:border-blue-300 hover:shadow-md transition-all cursor-pointer"
+                          className="border border-border rounded-lg p-4 hover:border-blue-300 hover:shadow-md transition-all cursor-pointer"
                           onClick={() => addToJourney(pattern)}
                         >
                           <div className="flex items-center justify-between mb-2">
                             <div className="flex items-center gap-2">
                               {getLandscapeIcon(pattern.landscape)}
-                              <h4 className="font-semibold text-gray-900">{pattern.name}</h4>
+                              <h4 className="font-semibold text-ink">{pattern.name}</h4>
                             </div>
-                            <Icon name="Plus" className="w-5 h-5 text-blue-600" />
+                            <Icon name="Plus" className="w-5 h-5 text-accent" />
                           </div>
-                          <p className="text-sm text-gray-600 mb-2">{pattern.description}</p>
+                          <p className="text-sm text-mid mb-2">{pattern.description}</p>
                           <span className={`px-2 py-1 rounded text-xs font-medium ${getChallengeColor(pattern.challenge)}`}>
                             {pattern.challenge}
                           </span>
@@ -1183,7 +1185,7 @@ const App = () => {
                       ))}
                       
                       {getSuggestedNextPatterns(journeyPath[journeyPath.length - 1]).length === 0 && (
-                        <div className="col-span-2 text-center py-8 text-gray-500">
+                        <div className="col-span-2 text-center py-8 text-mid/70">
                           No specific suggestions. Explore other modes to add more patterns to your journey.
                         </div>
                       )}
@@ -1199,14 +1201,14 @@ const App = () => {
       {/* Pattern Detail Modal */}
       {selectedPattern && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50" onClick={() => setSelectedPattern(null)}>
-          <div className="bg-white rounded-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
-            <div className="sticky top-0 bg-white border-b border-gray-200 p-6 flex items-start justify-between">
+          <div className="bg-card rounded-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
+            <div className="sticky top-0 bg-card border-b border-border p-6 flex items-start justify-between">
               <div className="flex items-start gap-3">
                 {getLandscapeIcon(selectedPattern.landscape)}
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-900">{selectedPattern.name}</h2>
+                  <h2 className="text-2xl font-bold text-ink">{selectedPattern.name}</h2>
                   <div className="flex gap-2 mt-2">
-                    <span className="px-2 py-1 bg-blue-50 text-blue-700 rounded text-sm font-medium">
+                    <span className="px-2 py-1 bg-accent-light/10 text-accent rounded text-sm font-medium">
                       {selectedPattern.landscape}
                     </span>
                     <span className={`px-2 py-1 rounded text-sm font-medium ${getChallengeColor(selectedPattern.challenge)}`}>
@@ -1217,7 +1219,7 @@ const App = () => {
               </div>
               <button
                 onClick={() => setSelectedPattern(null)}
-                className="text-gray-400 hover:text-gray-600"
+                className="text-mid/50 hover:text-mid"
               >
                 <Icon name="X" className="w-6 h-6" />
               </button>
@@ -1225,27 +1227,27 @@ const App = () => {
 
             <div className="p-6 space-y-6">
               <div>
-                <h3 className="font-semibold text-gray-900 mb-2">Description</h3>
-                <p className="text-gray-700">{selectedPattern.description}</p>
+                <h3 className="font-semibold text-ink mb-2">Description</h3>
+                <p className="text-ink/80">{selectedPattern.description}</p>
               </div>
 
               {selectedPattern.subCategory && (
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Sub-category</h3>
-                  <p className="text-gray-700">{selectedPattern.subCategory}</p>
+                  <h3 className="font-semibold text-ink mb-2">Sub-category</h3>
+                  <p className="text-ink/80">{selectedPattern.subCategory}</p>
                 </div>
               )}
 
               <div>
-                <h3 className="font-semibold text-gray-900 mb-2">Execution Requirements</h3>
+                <h3 className="font-semibold text-ink mb-2">Execution Requirements</h3>
                 <div className="flex gap-4">
-                  <span className={`px-3 py-1 rounded ${selectedPattern.fit ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-500'}`}>
+                  <span className={`px-3 py-1 rounded ${selectedPattern.fit ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-paper-dark text-mid/70'}`}>
                     {selectedPattern.fit ? '✓' : '○'} Fit Required
                   </span>
-                  <span className={`px-3 py-1 rounded ${selectedPattern.time ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-500'}`}>
+                  <span className={`px-3 py-1 rounded ${selectedPattern.time ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-paper-dark text-mid/70'}`}>
                     {selectedPattern.time ? '✓' : '○'} Time Sensitive
                   </span>
-                  <span className={`px-3 py-1 rounded ${selectedPattern.power ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-500'}`}>
+                  <span className={`px-3 py-1 rounded ${selectedPattern.power ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-paper-dark text-mid/70'}`}>
                     {selectedPattern.power ? '✓' : '○'} Power Required
                   </span>
                 </div>
@@ -1253,35 +1255,35 @@ const App = () => {
 
               {selectedPattern.whoExecutes && (
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Who Can Execute?</h3>
-                  <p className="text-gray-700">{selectedPattern.whoExecutes}</p>
+                  <h3 className="font-semibold text-ink mb-2">Who Can Execute?</h3>
+                  <p className="text-ink/80">{selectedPattern.whoExecutes}</p>
                 </div>
               )}
 
               {selectedPattern.whenExecute && (
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">When to Execute?</h3>
-                  <p className="text-gray-700">{selectedPattern.whenExecute}</p>
+                  <h3 className="font-semibold text-ink mb-2">When to Execute?</h3>
+                  <p className="text-ink/80">{selectedPattern.whenExecute}</p>
                 </div>
               )}
 
               {selectedPattern.whatWin && (
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">What Do You Win?</h3>
-                  <p className="text-gray-700">{selectedPattern.whatWin}</p>
+                  <h3 className="font-semibold text-ink mb-2">What Do You Win?</h3>
+                  <p className="text-ink/80">{selectedPattern.whatWin}</p>
                 </div>
               )}
 
               {selectedPattern.example && (
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Example</h3>
-                  <p className="text-gray-700 italic">{selectedPattern.example}</p>
+                  <h3 className="font-semibold text-ink mb-2">Example</h3>
+                  <p className="text-ink/80 italic">{selectedPattern.example}</p>
                 </div>
               )}
 
               {selectedPattern.relatedPatterns && selectedPattern.relatedPatterns.length > 0 && (
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Related Patterns</h3>
+                  <h3 className="font-semibold text-ink mb-2">Related Patterns</h3>
                   <div className="flex flex-wrap gap-2">
                     {selectedPattern.relatedPatterns.map(relatedName => {
                       const related = patterns.find(p => p.name === relatedName);
@@ -1289,7 +1291,7 @@ const App = () => {
                         <button
                           key={related.id}
                           onClick={() => setSelectedPattern(related)}
-                          className="px-3 py-1 bg-blue-50 text-blue-700 rounded hover:bg-blue-100 transition-colors"
+                          className="px-3 py-1 bg-accent-light/10 text-accent rounded hover:bg-blue-100 transition-colors"
                         >
                           {related.name}
                         </button>
