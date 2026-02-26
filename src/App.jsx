@@ -1,3 +1,4 @@
+// Patterns of Strategy Explorer - Bainbridge Aesthetic v2.0
 import { useState, useMemo } from 'react';
 
 // Inline SVG Icon Component (replaces lucide-react)
