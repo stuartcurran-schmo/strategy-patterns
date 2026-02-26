@@ -554,15 +554,6 @@ const App = () => {
                 )}
               </div>
             </div>
-                      className="w-full px-4 py-2 text-left hover:bg-paper flex items-center gap-2"
-                    >
-                      <Icon name="FileText" className="w-4 h-4" />
-                      Export as Text
-                    </button>
-                  </div>
-                )}
-              </div>
-            </div>
           </div>
         </div>
       </div>
